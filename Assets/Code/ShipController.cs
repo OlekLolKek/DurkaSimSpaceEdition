@@ -40,7 +40,7 @@ namespace Code
             _cameraOrbit = FindObjectOfType<CameraOrbit>();
             _cameraOrbit.Initiate(_cameraAttach == null ? transform : _cameraAttach);
             _playerLabel = GetComponentInChildren<PlayerLabel>();
-            base.OnStartAuthority();
+            Initiate(UpdatePhase.FixedUpdate);
         }
 
         protected override void HasAuthorityMovement()
@@ -62,7 +62,7 @@ namespace Code
             _cameraOrbit.SetFov(currentFov, spaceShipSettings.ChangeFovSpeed);
 
             var velocity = _cameraOrbit.transform.TransformDirection(Vector3.forward) * _shipSpeed;
-            _rb.velocity = velocity * Time.deltaTime;
+            _rb.velocity = velocity * (_updatePhase == UpdatePhase.FixedUpdate ? Time.fixedDeltaTime : Time.deltaTime);
 
             if (!Input.GetKey(KeyCode.C))
             {

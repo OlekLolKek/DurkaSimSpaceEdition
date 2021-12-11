@@ -7,9 +7,9 @@ namespace Code
 {
     public sealed class PlayerLabel : MonoBehaviour
     {
-        public void DrawLabel(Camera camera)
+        public void DrawLabel(Camera labelCamera)
         {
-            if (camera == null)
+            if (labelCamera == null)
             {
                 return;
             }
@@ -21,10 +21,10 @@ namespace Code
             for (int i = 0; i < objects.Count; i++)
             {
                 var obj = objects.ElementAt(i).Value;
-                var position = camera.WorldToScreenPoint(obj.transform.position);
+                var position = labelCamera.WorldToScreenPoint(obj.transform.position);
 
                 var collider = obj.GetComponent<Collider>();
-                if (collider != null && camera.Visible(collider) && obj.transform != transform)
+                if (collider != null && labelCamera.Visible(collider) && obj.transform != transform)
                 {
                     GUI.Label(
                         new Rect(new Vector2(position.x, Screen.height - position.y),

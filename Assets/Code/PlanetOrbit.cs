@@ -28,7 +28,12 @@ namespace Code
             {
                 _distance = (transform.position - _aroundPoint.position).magnitude;
             }
+            
             Initiate(UpdatePhase.FixedUpdate);
+        }
+
+        public override void OnStartAuthority()
+        {
         }
 
         protected override void HasAuthorityMovement()
@@ -50,9 +55,11 @@ namespace Code
             }
 
             transform.rotation = Quaternion.AngleAxis(_currentRotationAngle, transform.up);
-            _currentAngle += _circleRadians * _circleInSecond * Time.deltaTime;
+            _currentAngle += _circleRadians * _circleInSecond * (_updatePhase == UpdatePhase.FixedUpdate ? Time.fixedDeltaTime : Time.deltaTime);
             
             SendToServer();
+            
+            Debug.Log($"HasAuthorityMovement {name}");
         }
 
         protected override void FromServerUpdate()
@@ -62,6 +69,8 @@ namespace Code
                 return;
             }
 
+            Debug.Log($"FromServerUpdate {name}");
+            
             transform.position = Vector3.SmoothDamp(transform.position, _serverPosition,
                 ref _currentPositionSmoothVelocity, _speed);
             transform.rotation = Quaternion.Euler(_serverEuler);

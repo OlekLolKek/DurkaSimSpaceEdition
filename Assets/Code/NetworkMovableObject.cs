@@ -15,6 +15,8 @@ namespace Code
         protected Action _onLateUpdateAction { get; set; }
         protected Action _onPreRenderAction { get; set; }
         protected Action _onPostRenderAction { get; set; }
+
+        protected UpdatePhase _updatePhase;
         
 #pragma warning disable 618
         [SyncVar] protected Vector3 _serverPosition;
@@ -23,12 +25,14 @@ namespace Code
 
         public override void OnStartAuthority()
         {
-            Initiate();
+            Initiate(UpdatePhase.Update);
         }
 
         protected virtual void Initiate(UpdatePhase updatePhase = UpdatePhase.Update)
         {
-            switch (updatePhase)
+            _updatePhase = updatePhase;
+            
+            switch (_updatePhase)
             {
                 case UpdatePhase.Update:
                     _onUpdateAction += Movement;
@@ -46,21 +50,26 @@ namespace Code
                     _onPostRenderAction += Movement;
                     break;
             }
+            
+            Debug.Log($"Initiate {name}");
         }
 
         private void Update()
         {
             _onUpdateAction?.Invoke();
+            Debug.Log($"Update {name}");
         }
 
         private void LateUpdate()
         {
             _onLateUpdateAction?.Invoke();
+            Debug.Log($"LateUpdate {name}");
         }
 
         private void FixedUpdate()
         {
             _onFixedUpdateAction?.Invoke();
+            Debug.Log($"FixedUpdate {name}");
         }
 
         private void OnPreRender()
