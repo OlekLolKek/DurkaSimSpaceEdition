@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -17,7 +18,8 @@ namespace Code
             var playerName = !string.IsNullOrEmpty(_nameInput.text)
                 ? _nameInput.text
                 : $"Player{connection.connectionId}";
-            player.GetComponent<ShipController>().PlayerName = playerName;
+            var shipController = player.GetComponent<ShipController>();
+            shipController.PlayerName = playerName;
             NetworkServer.AddPlayerForConnection(connection, player, playerControllerId);
         }
     }

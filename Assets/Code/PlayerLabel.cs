@@ -21,11 +21,9 @@ namespace Code
             for (int i = 0; i < objects.Count; i++)
             {
                 var obj = objects.ElementAt(i).Value;
-                Debug.Log($"Iterating over {obj.name}");
                 var position = labelCamera.WorldToScreenPoint(obj.transform.position);
 
                 var collider = obj.GetComponent<Collider>();
-                Debug.Log($"Condition {obj.name}: {collider != null} {labelCamera.Visible(collider)} {obj.transform != transform}");
                 if (collider != null && labelCamera.Visible(collider) && obj.transform != transform)
                 {
                     GUI.Label(
