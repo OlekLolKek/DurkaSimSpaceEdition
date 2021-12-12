@@ -28,6 +28,11 @@ namespace Code
             _cameraOrbit?.CameraMovement();
         }
 
+        private void Start()
+        {
+            gameObject.name = _playerName;
+        }
+
         public override void OnStartAuthority()
         {
             _rb = GetComponent<Rigidbody>();
@@ -35,8 +40,7 @@ namespace Code
             {
                 return;
             }
-
-            gameObject.name = _playerName;
+            
             _cameraOrbit = FindObjectOfType<CameraOrbit>();
             _cameraOrbit.Initiate(_cameraAttach == null ? transform : _cameraAttach);
             _playerLabel = GetComponentInChildren<PlayerLabel>();
@@ -74,6 +78,8 @@ namespace Code
         
         private void OnGUI()
         {
+            Debug.Log($"OnGUI {name}");
+            
             if (_cameraOrbit == null)
             {
                 return;

@@ -50,26 +50,21 @@ namespace Code
                     _onPostRenderAction += Movement;
                     break;
             }
-            
-            Debug.Log($"Initiate {name}");
         }
 
         private void Update()
         {
             _onUpdateAction?.Invoke();
-            Debug.Log($"Update {name}");
         }
 
         private void LateUpdate()
         {
             _onLateUpdateAction?.Invoke();
-            Debug.Log($"LateUpdate {name}");
         }
 
         private void FixedUpdate()
         {
             _onFixedUpdateAction?.Invoke();
-            Debug.Log($"FixedUpdate {name}");
         }
 
         private void OnPreRender()

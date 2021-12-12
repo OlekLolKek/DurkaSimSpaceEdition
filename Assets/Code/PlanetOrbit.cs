@@ -20,7 +20,7 @@ namespace Code
         private float _currentRotationAngle;
         private Vector3 _currentPositionSmoothVelocity;
         
-        private const float _circleRadians = Mathf.PI * 2;
+        private const float CIRCLE_RADIANS = Mathf.PI * 2;
 
         private void Start()
         {
@@ -55,11 +55,9 @@ namespace Code
             }
 
             transform.rotation = Quaternion.AngleAxis(_currentRotationAngle, transform.up);
-            _currentAngle += _circleRadians * _circleInSecond * (_updatePhase == UpdatePhase.FixedUpdate ? Time.fixedDeltaTime : Time.deltaTime);
+            _currentAngle += CIRCLE_RADIANS * _circleInSecond * (_updatePhase == UpdatePhase.FixedUpdate ? Time.fixedDeltaTime : Time.deltaTime);
             
             SendToServer();
-            
-            Debug.Log($"HasAuthorityMovement {name}");
         }
 
         protected override void FromServerUpdate()
@@ -69,8 +67,6 @@ namespace Code
                 return;
             }
 
-            Debug.Log($"FromServerUpdate {name}");
-            
             transform.position = Vector3.SmoothDamp(transform.position, _serverPosition,
                 ref _currentPositionSmoothVelocity, _speed);
             transform.rotation = Quaternion.Euler(_serverEuler);
