@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -18,6 +17,7 @@ namespace Code
             Initiate();
             _rotationSpeed = Random.Range(_minRotationSpeed, _maxRotationSpeed);
         }
+        
         
         [Server]
         private void OnTriggerEnter(Collider other)

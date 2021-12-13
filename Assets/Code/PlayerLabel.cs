@@ -21,14 +21,17 @@ namespace Code
             for (int i = 0; i < objects.Count; i++)
             {
                 var obj = objects.ElementAt(i).Value;
-                var position = labelCamera.WorldToScreenPoint(obj.transform.position);
-
-                var collider = obj.GetComponent<Collider>();
-                if (collider != null && labelCamera.Visible(collider) && obj.transform != transform)
+                if (obj != null)
                 {
-                    GUI.Label(
-                        new Rect(new Vector2(position.x, Screen.height - position.y),
-                            new Vector2(10.0f, name.Length * 10.5f)), obj.name, style);
+                    var position = labelCamera.WorldToScreenPoint(obj.transform.position);
+
+                    var collider = obj.GetComponent<Collider>();
+                    if (collider != null && labelCamera.Visible(collider) && obj.transform != transform)
+                    {
+                        GUI.Label(
+                            new Rect(new Vector2(position.x, Screen.height - position.y),
+                                new Vector2(10.0f, name.Length * 10.5f)), obj.name, style);
+                    }
                 }
             }
         }

@@ -15,12 +15,11 @@ namespace Code
         private Rigidbody _rigidbody;
         private Collider _collider;
         private Renderer _renderer;
+        private ScoreTextView _scoreTextView;
 
         [SyncVar] private string _playerName;
-        [SyncVar] private bool _serverRigidbodyKinematic;
-        [SyncVar] private bool _serverColliderEnabled;
-        [SyncVar] private bool _serverRendererEnabled;
-        
+        [SyncVar] private int _points;
+
         public string PlayerName
         {
             get => _playerName;
@@ -43,13 +42,22 @@ namespace Code
         [Server]
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.TryGetComponent(typeof(CrystalController), out _))
+            if (!other.TryGetComponent(typeof(CrystalController), out var crystal))
                 OnObjectTriggerEnter();
+            else
+            {
+                OnCrystalTriggerEnter();
+            }
         }
         
         private void OnObjectTriggerEnter()
         {
             StartCoroutine(DestroyPlayer());
+        }
+
+        private void OnCrystalTriggerEnter()
+        {
+            _points++;
         }
         
         private IEnumerator DestroyPlayer()
@@ -133,6 +141,7 @@ namespace Code
         {
             base.OnStartClient();
             GetNecessaryComponents();
+            _scoreTextView = FindObjectOfType<ScoreTextView>();
         }
 
         protected override void HasAuthorityMovement()
@@ -162,6 +171,8 @@ namespace Code
                     Quaternion.LookRotation(Quaternion.AngleAxis(_cameraOrbit.LookAngle, -transform.right) * velocity);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * speed);
             }
+            
+            _scoreTextView.SetScore(_points);
         }
         
         private void OnGUI()
@@ -176,16 +187,10 @@ namespace Code
 
         protected override void FromServerUpdate()
         {
-             _rigidbody.isKinematic = _serverRigidbodyKinematic;
-            _collider.enabled = _serverColliderEnabled;
-            _renderer.enabled = _serverRendererEnabled;
         }
 
         protected override void SendToServer()
         {
-            _serverRigidbodyKinematic = _rigidbody.isKinematic;
-            _serverColliderEnabled = _collider.enabled;
-            _serverRendererEnabled = _renderer.enabled;
         }
     }
 }

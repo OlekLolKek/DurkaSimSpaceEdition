@@ -27,6 +27,7 @@ namespace Code
             if (isServer)
             {
                 _distance = (transform.position - _aroundPoint.position).magnitude;
+                _currentAngle = Random.Range(1.0f, 359.0f);
             }
             
             Initiate(UpdatePhase.FixedUpdate);
