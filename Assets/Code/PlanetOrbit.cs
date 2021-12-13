@@ -20,15 +20,21 @@ namespace Code
         private float _currentRotationAngle;
         private Vector3 _currentPositionSmoothVelocity;
         
-        private const float _circleRadians = Mathf.PI * 2;
+        private const float CIRCLE_RADIANS = Mathf.PI * 2;
 
         private void Start()
         {
             if (isServer)
             {
                 _distance = (transform.position - _aroundPoint.position).magnitude;
+                _currentAngle = Random.Range(1.0f, 359.0f);
             }
+            
             Initiate(UpdatePhase.FixedUpdate);
+        }
+
+        public override void OnStartAuthority()
+        {
         }
 
         protected override void HasAuthorityMovement()
@@ -50,7 +56,12 @@ namespace Code
             }
 
             transform.rotation = Quaternion.AngleAxis(_currentRotationAngle, transform.up);
-            _currentAngle += _circleRadians * _circleInSecond * Time.deltaTime;
+            _currentAngle += 
+                CIRCLE_RADIANS *
+                _circleInSecond * 
+                (_updatePhase == UpdatePhase.FixedUpdate 
+                    ? Time.fixedDeltaTime
+                    : Time.deltaTime);
             
             SendToServer();
         }
@@ -62,8 +73,8 @@ namespace Code
                 return;
             }
 
-            transform.position = Vector3.SmoothDamp(transform.position, _serverPosition,
-                ref _currentPositionSmoothVelocity, _speed);
+            transform.position = Vector3.SmoothDamp(transform.position,
+                _serverPosition, ref _currentPositionSmoothVelocity, _speed);
             transform.rotation = Quaternion.Euler(_serverEuler);
         }
 

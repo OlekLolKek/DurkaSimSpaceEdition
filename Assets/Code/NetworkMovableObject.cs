@@ -16,6 +16,8 @@ namespace Code
         protected Action _onPreRenderAction { get; set; }
         protected Action _onPostRenderAction { get; set; }
         
+        protected UpdatePhase _updatePhase;
+        
 #pragma warning disable 618
         [SyncVar] protected Vector3 _serverPosition;
         [SyncVar] protected Vector3 _serverEuler;
@@ -23,12 +25,14 @@ namespace Code
 
         public override void OnStartAuthority()
         {
-            Initiate();
+            Initiate(UpdatePhase.Update);
         }
 
         protected virtual void Initiate(UpdatePhase updatePhase = UpdatePhase.Update)
         {
-            switch (updatePhase)
+            _updatePhase = updatePhase;
+            
+            switch (_updatePhase)
             {
                 case UpdatePhase.Update:
                     _onUpdateAction += Movement;
