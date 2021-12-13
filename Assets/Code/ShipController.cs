@@ -43,7 +43,8 @@ namespace Code
         [Server]
         private void OnTriggerEnter(Collider other)
         {
-            OnObjectTriggerEnter();
+            if (!other.TryGetComponent(typeof(CrystalController), out _))
+                OnObjectTriggerEnter();
         }
         
         private void OnObjectTriggerEnter()

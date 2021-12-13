@@ -55,7 +55,12 @@ namespace Code
             }
 
             transform.rotation = Quaternion.AngleAxis(_currentRotationAngle, transform.up);
-            _currentAngle += CIRCLE_RADIANS * _circleInSecond * (_updatePhase == UpdatePhase.FixedUpdate ? Time.fixedDeltaTime : Time.deltaTime);
+            _currentAngle += 
+                CIRCLE_RADIANS *
+                _circleInSecond * 
+                (_updatePhase == UpdatePhase.FixedUpdate 
+                    ? Time.fixedDeltaTime
+                    : Time.deltaTime);
             
             SendToServer();
         }
@@ -67,8 +72,8 @@ namespace Code
                 return;
             }
 
-            transform.position = Vector3.SmoothDamp(transform.position, _serverPosition,
-                ref _currentPositionSmoothVelocity, _speed);
+            transform.position = Vector3.SmoothDamp(transform.position,
+                _serverPosition, ref _currentPositionSmoothVelocity, _speed);
             transform.rotation = Quaternion.Euler(_serverEuler);
         }
 
