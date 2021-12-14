@@ -12,9 +12,6 @@ Shader "Custom/Atmosphere"
     SubShader
     {
         Tags { "Queue"="Transparent" "RenderType" = "Transparent" }
-        //LOD 100
-        
-        //https://www.youtube.com/watch?v=mL8U8tIiRRg&list=PLImQaTpSAdsCnJon-Eir92SZMl7tPBS4Z&index=2
 
         Pass
         {
@@ -65,8 +62,8 @@ Shader "Custom/Atmosphere"
                 const float3 N = normalize(i.normal);
                 const float3 V = normalize(_WorldSpaceCameraPos - i.wPos);
 
-                float fresnel = dot (V, N) + 0.1;
-                fresnel = tanh(fresnel);
+                float fresnel = dot (V, N) + 0.1; // +0.1 is used to remove the black edges
+                fresnel = tanh(fresnel); // tanh is used to distribute the opacity more evenly
                 float4 color = _Color;
                 color.w = pow(clamp(fresnel, _ClampLower, _ClampUpper), _Transparency);
                 return color;
