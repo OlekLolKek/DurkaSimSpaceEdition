@@ -15,6 +15,7 @@ namespace Code
         private void Start()
         {
             Initiate();
+            name = "Crystal";
             _rotationSpeed = Random.Range(_minRotationSpeed, _maxRotationSpeed);
         }
         
