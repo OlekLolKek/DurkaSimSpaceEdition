@@ -27,7 +27,6 @@ namespace Code
                 position.y = Random.Range(_minSpawnDistance, _maxSpawnDistance);
                 position.z = Random.Range(_minSpawnDistance, _maxSpawnDistance);
                 var crystalInstance = Instantiate(crystal, position, Quaternion.identity);
-                crystalInstance.name = "Crystal";
                 NetworkServer.Spawn(crystalInstance);
             }
         }
