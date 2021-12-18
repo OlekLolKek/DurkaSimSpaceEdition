@@ -2,7 +2,9 @@ Shader "Custom/Planet"
 {
     Properties
     {
-        _Color ("Color", Color) = (1,1,1,1)
+        _WaterColor ("Water Color", Color) = (1,1,1,1)
+        _SurfaceColor ("Surface Color", Color) = (1,1,1,1)
+        _MountainColor ("Mountain Color", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Emission ("Emission", Color) = (1,1,1,1)
         _Height ("Height", Range(-1,1)) = 0
@@ -32,7 +34,9 @@ Shader "Custom/Planet"
             float4 color: COLOR;
         };
 
-        fixed4 _Color;
+        fixed4 _WaterColor;
+        fixed4 _SurfaceColor;
+        fixed4 _MountainColor;
         float4 _Emission;
         float _Height;
         float _Seed;
@@ -70,29 +74,28 @@ Shader "Custom/Planet"
 
         void surf(Input IN, inout SurfaceOutput o)
         {
-            fixed4 color = tex2D(_MainTex, IN.uv_MainTex) * _Color;
+            fixed4 color = tex2D(_MainTex, IN.uv_MainTex) * _WaterColor;
 
             float height = IN.color.r;
             if (height < 0.45)
             {
-                color.x = 0.10;
-                color.y = 0.30;
-                color.z = 0.50;
+                color.x = _WaterColor.x;
+                color.y = _WaterColor.y;
+                color.z = _WaterColor.z;
             }
             else if (height < 0.75)
             {
-                color.x = 0.10;
-                color.y = 0.60;
-                color.z = 0.30;
+                color.x = _SurfaceColor.x;
+                color.y = _SurfaceColor.y;
+                color.z = _SurfaceColor.z;
             }
             else
             {
-                color.x = 0.60;
-                color.y = 0.30;
-                color.z = 0.30;
+                color.x = _MountainColor.x;
+                color.y = _MountainColor.y;
+                color.z = _MountainColor.z;
             }
-
-
+            
             o.Albedo = color.rgb;
             o.Alpha = color.a;
             o.Emission = _Emission.xyz;
