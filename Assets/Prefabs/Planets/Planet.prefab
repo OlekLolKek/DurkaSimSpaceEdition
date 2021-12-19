@@ -177,7 +177,6 @@ GameObject:
   - component: {fileID: 2165988773999361012}
   - component: {fileID: 5723052818300197099}
   - component: {fileID: 4532421309855076761}
-  - component: {fileID: 5720404968130620549}
   m_Layer: 0
   m_Name: Atmosphere
   m_TagString: Untagged
@@ -248,16 +247,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5720404968130620549
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4175523420427055552}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
