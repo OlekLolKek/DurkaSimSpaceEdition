@@ -8,13 +8,13 @@ namespace Code
 {
     partial class CameraRenderer
     {
-        private readonly CommandBuffer _commandBuffer = new CommandBuffer {name = BUFFER_NAME};
+        private readonly CommandBuffer _commandBuffer = new CommandBuffer {name = "_bufferName"};
 
         private static readonly List<ShaderTagId> _drawingShaderTagIds = new List<ShaderTagId>
         {
             new ShaderTagId("SRPDefaultUnlit")
         };
-        private const string BUFFER_NAME = "Camera Render";
+        private string _bufferName = "Camera Render";
         
         private ScriptableRenderContext _context;
         private CullingResults _cullingResult;
@@ -26,6 +26,9 @@ namespace Code
         {
             _context = context;
             _camera = camera;
+
+            _bufferName = _camera.name;
+            _commandBuffer.name = _bufferName;
 
             if (!TryGetCullingParameters())
             {
@@ -44,13 +47,13 @@ namespace Code
             
             _context.SetupCameraProperties(_camera);
             _commandBuffer.ClearRenderTarget(true, true, Color.clear);
-            _commandBuffer.BeginSample(BUFFER_NAME);
+            _commandBuffer.BeginSample(_bufferName);
             ExecuteCommandBuffer();
         }
         
         private void Submit()
         {
-            _commandBuffer.EndSample(BUFFER_NAME);
+            _commandBuffer.EndSample(_bufferName);
             ExecuteCommandBuffer();
             _context.Submit();
         }
