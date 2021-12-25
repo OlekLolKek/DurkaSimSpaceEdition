@@ -37,6 +37,18 @@ namespace Code
             var filteringSettings = FilteringSettings.defaultValue;
             _context.DrawRenderers(_cullingResult, ref drawingSettings, ref filteringSettings);
         }
+
+        partial void DrawSceneUI()
+        {
+            // found it here: https://catlikecoding.com/unity/tutorials/scriptable-render-pipeline/custom-pipeline/
+            if (_camera.cameraType == CameraType.SceneView)
+            {
+                ScriptableRenderContext.EmitWorldGeometryForSceneView(_camera);
+            }
+        }
 #endif
+        partial void DrawGizmos();
+
+        partial void DrawSceneUI();
     }
 }

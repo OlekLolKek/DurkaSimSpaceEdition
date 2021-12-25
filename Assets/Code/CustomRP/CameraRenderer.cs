@@ -20,26 +20,28 @@ namespace Code
         private CullingResults _cullingResult;
         private Camera _camera;
 
+        private ScriptableCullingParameters _cullingParameters;
+
         public void Render(ScriptableRenderContext context, Camera camera)
         {
             _context = context;
             _camera = camera;
 
-            if (!Cull(out var parameters))
+            if (!TryGetCullingParameters())
             {
                 return;
             }
             
-            Settings(parameters);
+            Settings();
             DrawVisible();
             DrawUnsupportedShaders();
             DrawGizmos();
             Submit();
         }
 
-        private void Settings(ScriptableCullingParameters parameters)
+        private void Settings()
         {
-            _cullingResult = _context.Cull(ref parameters);
+            
             _context.SetupCameraProperties(_camera);
             _commandBuffer.ClearRenderTarget(true, true, Color.clear);
             _commandBuffer.BeginSample(BUFFER_NAME);
@@ -71,16 +73,15 @@ namespace Code
             return drawingSettings;
         }
 
-        
         private void ExecuteCommandBuffer()
         {
             _context.ExecuteCommandBuffer(_commandBuffer);
             _commandBuffer.Clear();
         }
 
-        private bool Cull(out ScriptableCullingParameters parameters)
+        private bool TryGetCullingParameters()
         {
-            return _camera.TryGetCullingParameters(out parameters);
+            return _camera.TryGetCullingParameters(out _cullingParameters);
         }
 
         private void DrawVisible()
@@ -89,6 +90,10 @@ namespace Code
                 out var sortingSettings);
             var filteringSettings = new FilteringSettings(RenderQueueRange.all);
 
+            DrawSceneUI();
+            
+            Cull(_cullingParameters);
+            
             _context.DrawRenderers(_cullingResult, ref drawingSettings, ref filteringSettings);
             
             _context.DrawSkybox(_camera);
@@ -100,7 +105,12 @@ namespace Code
             _context.DrawRenderers(_cullingResult, ref drawingSettings, ref filteringSettings);
         }
 
-        private void DrawGizmos()
+        private void Cull(ScriptableCullingParameters parameters)
+        {
+            _cullingResult = _context.Cull(ref parameters);
+        }
+
+        partial void DrawGizmos()
         {
             if (!Handles.ShouldRenderGizmos())
             {
