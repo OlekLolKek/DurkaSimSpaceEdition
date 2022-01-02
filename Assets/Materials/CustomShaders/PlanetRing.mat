@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PlanetRing
-  m_Shader: {fileID: 4800000, guid: 4ef6f65be80b6324495b00ae8a54f1bc, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 8f7424e37c421ea40bc31b2f6bed30c0, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -55,7 +55,22 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_5ad920e42294459eae5567a95409fdc0: 0.359
+    - Vector1_5d187dcfc7a04eb9bfcf26c3930ff0b0: 0.5
+    - Vector1_90f8a0c00d7f4f42b4fc3caeb808c47a: 0.268
     - _BumpScale: 1
     - _Cutoff: 0.36
     - _DetailNormalMapScale: 1
@@ -75,6 +90,8 @@ Material:
     - _Width: 0.723
     - _ZWrite: 1
     m_Colors:
+    - Color_3e825fa9fc794cafbfeea9f09d5438ab: {r: 1, g: 0.10980393, b: 0, a: 1}
+    - Color_b8cd19a4dc124b7c90e1b68e51908348: {r: 0.16037738, g: 0.11877005, b: 0.11877005, a: 0}
     - _Color: {r: 0, g: 1, b: 0.049598455, a: 0.24705882}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

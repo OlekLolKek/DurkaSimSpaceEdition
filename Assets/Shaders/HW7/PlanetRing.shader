@@ -14,14 +14,6 @@ Shader "Custom/PlanetRing"
         LOD 200
         Cull off
         ZTest Less
-        
-        Stencil
-        {
-            Ref 1
-            Comp Always
-            Pass Keep
-            ZFail Replace
-        }
 
         CGPROGRAM
         
