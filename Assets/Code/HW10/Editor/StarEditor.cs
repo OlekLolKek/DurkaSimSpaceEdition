@@ -14,6 +14,8 @@ namespace Code
 
         private Vector3 _pointSnap = new Vector3(0.05f, 0.05f, 0.05f);
 
+        private bool _showList;
+
         private void OnEnable()
         {
             _center = serializedObject.FindProperty("_center");
@@ -26,7 +28,31 @@ namespace Code
             serializedObject.Update();
             
             EditorGUILayout.PropertyField(_center);
-            EditorGUILayout.PropertyField(_points);
+            _showList = EditorGUILayout.Foldout(_showList, _points.displayName);
+
+            if (_showList)
+            {
+                for (int i = 0; i < _points.arraySize; i++)
+                {
+                    var point = _points.GetArrayElementAtIndex(i);
+                    var horizontal = EditorGUILayout.BeginHorizontal();
+                    EditorGUILayout.PropertyField(point);
+                    if (GUILayout.Button("↓", GUILayout.Width(22)))
+                    {
+                        MoveElementDown(i);
+                    }
+                    if (GUILayout.Button("+", GUILayout.Width(22)))
+                    {
+                        DuplicateItem(i);
+                    }
+                    if (GUILayout.Button("-", GUILayout.Width(22)))
+                    {
+                        RemoveItem(i);
+                    }
+                    EditorGUILayout.EndHorizontal();
+                }
+            }
+
             EditorGUILayout.IntSlider(_frequency, 1, 20);
 
             var totalPoints = _frequency.intValue * _points.arraySize;
@@ -56,6 +82,22 @@ namespace Code
             }
         }
 
+        private void MoveElementDown(int index)
+        {
+            if (_points.arraySize > index + 1)
+                _points.MoveArrayElement(index, index + 1);
+        }
+
+        private void DuplicateItem(int index)
+        {
+            _points.InsertArrayElementAtIndex(index);
+        }
+
+        private void RemoveItem(int index)
+        {
+            _points.DeleteArrayElementAtIndex(index);
+        }
+        
         private void OnSceneGUI()
         {
             if (!(target is Star star))
