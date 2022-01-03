@@ -10,7 +10,7 @@ Shader "Custom/PlanetRing"
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" "ForceNoShadowCasting"="True" "Queue"="Geometry+1"}
+        Tags { "RenderType"="Transparent" "ForceNoShadowCasting"="True" "Queue"="Transparent-2"}
         LOD 200
         Cull off
         ZTest Less
