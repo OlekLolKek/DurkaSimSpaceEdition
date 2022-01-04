@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2560323951527386828}
   - component: {fileID: 1456075035577581557}
   - component: {fileID: 6830194582566165603}
+  - component: {fileID: 1822872840375259019}
   - component: {fileID: 8076761914070098030}
   - component: {fileID: 8429037933495598434}
   - component: {fileID: 8246164862476392289}
@@ -30,13 +31,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3934553380914075370}
-  m_LocalRotation: {x: 0.42308146, y: 0.34090185, z: 0.17716679, w: 0.8206095}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 35, y: 60, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2560323951527386828
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -44,7 +45,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3934553380914075370}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 0}
 --- !u!23 &1456075035577581557
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 33cd6a436af8cc843ae13a2cc4179117, type: 2}
+  - {fileID: 2100000, guid: ece2132cdddc8fe459e9d1e6dd344d11, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,6 +100,31 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1822872840375259019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3934553380914075370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 667953ee5aa94e28b761d01a062dae72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _center:
+    Position: {x: 0, y: 0, z: 0}
+    Color: {r: 0.9056604, g: 0.14951938, b: 0.45494106, a: 1}
+  _points:
+  - Position: {x: -1, y: 0, z: 0}
+    Color: {r: 0, g: 0.73552465, b: 1, a: 1}
+  - Position: {x: -1.8414999, y: 0, z: 0.25}
+    Color: {r: 0.26606226, g: 0, b: 1, a: 1}
+  - Position: {x: -1, y: 0, z: 0}
+    Color: {r: 0, g: 0.7372549, b: 1, a: 1}
+  - Position: {x: -1.4, y: 0, z: -0.25}
+    Color: {r: 0.55408716, g: 0, b: 1, a: 1}
+  _frequency: 8
 --- !u!54 &8076761914070098030
 Rigidbody:
   m_ObjectHideFlags: 0
