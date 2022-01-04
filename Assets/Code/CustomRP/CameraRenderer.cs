@@ -115,10 +115,10 @@ namespace Code
 
         partial void DrawGizmos()
         {
-            if (!Handles.ShouldRenderGizmos())
-            {
-                return;
-            }
+            // if (!Handles.ShouldRenderGizmos())
+            // {
+            //     return;
+            // }
 
             _context.DrawGizmos(_camera, GizmoSubset.PreImageEffects);
             _context.DrawGizmos(_camera, GizmoSubset.PostImageEffects);
